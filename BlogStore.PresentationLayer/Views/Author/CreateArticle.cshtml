@@ -1,0 +1,43 @@
+﻿@model BlogStore.EntityLayer.Entities.Article
+
+@{
+    ViewData["Title"] = "CreateArticle";
+    Layout = "~/Views/AuthorLayout/Index.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm mx-auto" style="max-width: 700px;">
+        <div class="card-header bg-info text-white">
+            <h3 class="mb-0">Yeni Makale Oluştur</h3>
+        </div>
+        <div class="card-body">
+            <form method="post" novalidate>
+                <div class="mb-4">
+                    <label for="ArticleTitle" class="form-label fw-semibold">Makale Başlığı</label>
+                    <input type="text" class="form-control" id="ArticleTitle" asp-for="Title" placeholder="Makale başlığınızı girin" />
+                    <span class="text-danger" asp-validation-for="Title"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label for="ArticleImageURL" class="form-label fw-semibold">Görsel Yolu</label>
+                    <input type="text" class="form-control" id="ArticleImageURL" asp-for="ImageUrl" placeholder="Örn: /images/makale1.jpg" />
+                    <span class="text-danger" asp-validation-for="ImageUrl"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Makale Kategorisi</label>
+                    @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.v, "Kategori Seçiniz", new { @class = "form-select" })
+                    <span class="text-danger" asp-validation-for="CategoryId"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">İçerik</label>
+                    <textarea asp-for="Description" class="form-control" rows="6" placeholder="Makalenizin içeriğini buraya yazın"></textarea>
+                    <span class="text-danger" asp-validation-for="Description"></span>
+                </div>
+
+                <button type="submit" class="btn btn-info px-4 py-2 fw-semibold w-100">Makale Oluştur</button>
+            </form>
+        </div>
+    </div>
+</div>

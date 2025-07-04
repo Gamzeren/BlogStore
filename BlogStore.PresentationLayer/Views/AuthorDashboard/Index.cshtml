@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AuthorLayout/Index.cshtml";
+}
+
+<div class="row">
+
+    @await Component.InvokeAsync("_AuthorDashboardChartComponentPartial")
+
+    @await Component.InvokeAsync("_AuthorDashboardProductPerformanceComponentPartial")
+
+    @await Component.InvokeAsync("_AuthorDashboardRecentCommentsComponentPartial")
+  
+</div>

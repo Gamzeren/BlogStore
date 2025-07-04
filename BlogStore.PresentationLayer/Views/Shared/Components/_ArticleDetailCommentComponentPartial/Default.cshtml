@@ -1,0 +1,101 @@
+﻿@model List<BlogStore.EntityLayer.Entities.Comment>
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Authorization
+
+
+<div class="pt-5 comment-wrap">
+    <h3 class="mb-5 heading">@Model.Count Yorum</h3>
+    <ul class="comment-list">
+        @foreach (var item in Model)
+        {
+            <li class="comment">
+                <div class="vcard">
+                    <img src="@item.AppUser.ImageUrl" alt="Image placeholder">
+                </div>
+                <div class="comment-body">
+                    <h3>@item.AppUser.Name @item.AppUser.Surname</h3>
+                    <div class="meta">@item.CommentDate.ToString("dd-MMM-yyyy")</div>
+                    <p>@item.CommentDetail</p>
+                    <p><a href="#" class="reply rounded">Yanıtla</a></p>
+                </div>
+            </li>
+        }
+    </ul>
+    <!-- END comment-list -->
+    
+    
+        <div class="comment-form-wrap pt-5">
+            <h3 class="mb-5">Bir Yorum Bırakın</h3>
+            <form id="commentForm" class="p-5 bg-light" action="/Comment/CreateComment" method="post">
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <label for="message">Yorumunuz</label>
+                    <textarea name="CommentDetail" id="message" cols="30" rows="10" class="form-control"></textarea>
+                </div>
+                <!-- Gerekli diğer alanlar (ör: ArticleId, AppUserId) için hidden input ekleyin -->
+                <input type="hidden" name="ArticleId" value="@ViewBag.ArticleId" />
+
+                <div class="form-group">
+                    <input type="submit" value="Yorum Yap" class="btn btn-primary" />
+                </div>
+            </form>
+            <div id="commentResult"></div>
+        </div>
+   
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+       $(document).ready(function() {
+        $('#commentForm').submit(function (e) {
+            e.preventDefault();
+            var form = $(this);
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                data: form.serialize(),
+                headers: {
+                    'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                },
+                success: function (result) {
+                    if (result.status === "success") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Başarılı!',
+                            text: result.message,
+                            background: '#e6ffed',
+                            confirmButtonColor: '#28a745'
+                        }).then(() => location.reload());
+                    } else if (result.status === "toxic") {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Dikkat!',
+                            text: result.message,
+                            background: '#fffbe6',
+                            confirmButtonColor: '#ffc107'
+                        }).then(() => location.reload());
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Hata!',
+                            text: result.message,
+                            background: '#ffe6e6',
+                            confirmButtonColor: '#dc3545'
+                        }).then(() => location.reload());
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log('AJAX error:', error);
+                    console.log('Status:', status);
+                    console.log('XHR:', xhr);
+                    if (xhr && xhr.responseText) {
+                        console.log('ResponseText:', xhr.responseText);
+                    }
+                    $('#commentResult').html('<div class="alert alert-danger">Bir hata oluştu.</div>');
+                }
+            });
+        });
+    });
+</script>

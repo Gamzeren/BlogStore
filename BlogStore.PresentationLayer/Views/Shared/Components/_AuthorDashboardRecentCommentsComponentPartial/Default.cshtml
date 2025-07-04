@@ -1,0 +1,31 @@
+﻿@model List<BlogStore.EntityLayer.Entities.Comment>
+
+<div class="col-lg-12">
+    <!-- Card -->
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title mb-0">Makalelerime Yapılan Son Yorumlar</h4>
+        </div>
+        <div class="comment-widgets scrollable mb-2 common-widget" style="height: 465px" data-simplebar="">
+            <!-- Comment Row -->
+            @foreach (var item in Model)
+            {
+                <div class="d-flex flex-row comment-row border-bottom p-3 gap-3">
+                    <div>
+                        <span>
+                            <img src="@item.Article.ImageUrl" class="rounded-circle" alt="user"
+                                 width="50" />
+                        </span>
+                    </div>
+                    <div class="comment-text w-100">
+                        <h6 class="fw-medium">@item.AppUser.Name @item.AppUser.Surname / @item.Article.Title</h6>
+                        <p class="mb-1 fs-2 text-muted">
+                            @item.CommentDetail
+                        </p>
+                    </div>
+                </div>
+            }
+            <!-- Comment Row -->
+        </div>
+    </div>
+</div>

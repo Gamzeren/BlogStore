@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+
+@await Component.InvokeAsync("_AuthorLayoutHeadComponentPartial")
+
+<body>
+    <!--  Body Wrapper -->
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+         data-sidebar-position="fixed" data-header-position="fixed">
+
+        <!--  App Topstrip -->
+        <div class="app-topstrip bg-dark py-6 px-3 w-100 d-lg-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center justify-content-center gap-5 mb-2 mb-lg-0">
+                <a class="d-flex justify-content-center" href="#">
+                    <img src="/flexy-bootstrap-lite-1.0.0/assets/images/logos/logo-wrappixel.svg" alt="" width="150">
+                </a>
+
+
+            </div>
+
+        </div>
+        <!-- Sidebar Start -->
+        @await Component.InvokeAsync("_AuthorLayoutSidebarComponentPartial")
+        <!--  Sidebar End -->
+        <!--  Main wrapper -->
+        <!--  Header Start -->
+        <!--  Header End -->
+        <div class="body-wrapper">
+            @await Component.InvokeAsync("_AuthorLayoutNavbarComponentPartial")
+            <div class="body-wrapper-inner">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @await Component.InvokeAsync("_AuthorLayoutScriptComponentPartial")
+    <!-- solar icons -->
+
+</body>
+</html>

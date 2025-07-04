@@ -1,0 +1,18 @@
+﻿@model BlogStore.EntityLayer.Entities.AppUser
+
+<div class="sidebar-box">
+    <div class="bio text-center">
+        <img src="@Model.ImageUrl" alt="Image Placeholder" class="img-fluid mb-3">
+        <div class="bio-body">
+            <h2>@Model.Name @Model.Surname</h2>
+            <p class="mb-4">@Model.Description</p>
+            <p><a href="#" class="btn btn-primary btn-sm rounded px-2 py-2">Yazar Profili</a></p>
+            <p class="social">
+                <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
+                <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
+                <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
+                <a href="#" class="p-2"><span class="fa fa-youtube-play"></span></a>
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+﻿@model BlogStore.EntityLayer.Entities.Article
+@{
+    Layout = null;
+}
+
+<!-- /*
+* Template Name: Blogy
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+<!doctype html>
+<html lang="en">
+@await Component.InvokeAsync("_HeadLayoutComponentPartial")
+<body>
+
+    @await Component.InvokeAsync("_NavbarLayoutComponentPartial")
+
+    @await Component.InvokeAsync("_ArticleDetailMainCoverImageComponentPartial", new {id=ViewBag.i})
+
+    <section class="section">
+        <div class="container">
+
+            <div class="row blog-entries element-animate">
+
+                <div class="col-md-12 col-lg-8 main-content">
+
+                    @await Component.InvokeAsync("_ArticleDetailContentComponentPartial", new {id=ViewBag.i})
+
+
+                    <div class="pt-5">
+                        <p>Categories:  <a href="#">Food</a>, <a href="#">Travel</a>  Tags: <a href="#">#manila</a>, <a href="#">#asia</a></p>
+                    </div>
+
+                    @await Component.InvokeAsync("_ArticleDetailCommentComponentPartial", new { id = ViewBag.i })
+                   
+
+                </div>
+
+                <!-- END main-content -->
+
+                <div class="col-md-12 col-lg-4 sidebar">
+                    <div class="sidebar-box search-form-wrap">
+                        <form action="#" class="sidebar-search-form">
+                            <span class="bi-search"></span>
+                            <input type="text" class="form-control" id="s" placeholder="Bir Anahtar Kelime Girin">
+                        </form>
+                    </div>
+                    <!-- END sidebar-box -->
+                    @await Component.InvokeAsync("_ArticleDetailAboutAuthorComponentPartial", new { id = ViewBag.i })
+                    <!-- END sidebar-box -->
+                    @await Component.InvokeAsync("_ArticleDetailPopularPostsComponentPartial")
+                    <!-- END sidebar-box -->
+                    @await Component.InvokeAsync("_ArticleDetailCategoryListComponentPartial")
+                    
+                    <!-- END sidebar-box -->
+
+                    <div class="sidebar-box">
+                        <h3 class="heading">Tags</h3>
+                        <ul class="tags">
+                            <li><a href="#">Travel</a></li>
+                            <li><a href="#">Adventure</a></li>
+                            <li><a href="#">Food</a></li>
+                            <li><a href="#">Lifestyle</a></li>
+                            <li><a href="#">Business</a></li>
+                            <li><a href="#">Freelancing</a></li>
+                            <li><a href="#">Travel</a></li>
+                            <li><a href="#">Adventure</a></li>
+                            <li><a href="#">Food</a></li>
+                            <li><a href="#">Lifestyle</a></li>
+                            <li><a href="#">Business</a></li>
+                            <li><a href="#">Freelancing</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- END sidebar -->
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Start posts-entry -->
+    <!-- End posts-entry -->
+    @await Component.InvokeAsync("_ArticleDetailFooterComponentPartial")
+    
+    <!-- /.site-footer -->
+    <!-- Preloader -->
+
+    @await Component.InvokeAsync("_ScriptsLayoutComponentPartial")
+
+</body>
+</html>
+

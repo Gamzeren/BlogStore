@@ -1,0 +1,84 @@
+﻿@model List<(string CategoryName, int ArticleCount)>
+@using System.Text.Json
+
+<div class="container">
+    <h2 class="mb-4 text-center">Genel İstatistikler</h2>
+
+    <div class="row">
+        <!-- Bar Chart -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm p-3">
+                <div id="barChart"></div>
+            </div>
+        </div>
+
+        <!-- Donut Chart -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm p-3">
+                <div id="donutChart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ApexCharts CDN -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<script>
+    // C# verisini JavaScript'e geçiriyoruz
+    var categoryNames = @Html.Raw(JsonSerializer.Serialize(Model.Select(x => x.CategoryName)));
+    var articleCounts = @Html.Raw(JsonSerializer.Serialize(Model.Select(x => x.ArticleCount)));
+
+    // Bar Chart
+    var barOptions = {
+        chart: {
+            type: 'bar',
+            height: 350,
+            toolbar: {
+                show: false
+            }
+        },
+        series: [{
+            name: 'Makale Sayısı',
+            data: articleCounts
+        }],
+        xaxis: {
+            categories: categoryNames
+        },
+        colors: ['#008FFB'],
+        title: {
+            text: 'Kategoriye Göre Makale Sayısı',
+            align: 'center',
+            style: {
+                fontSize: '18px'
+            }
+        }
+    };
+
+    var barChart = new ApexCharts(document.querySelector("#barChart"), barOptions);
+    barChart.render();
+
+    // Donut Chart - Aynı veriyi kullanarak çiziyoruz (isteğe bağlı özelleştirilebilir)
+    var donutOptions = {
+        chart: {
+            type: 'donut',
+            height: 350
+        },
+        series: articleCounts,
+        labels: categoryNames,
+        colors: ['#00E396', '#FEB019', '#FF4560', '#775DD0', '#546E7A'],
+        title: {
+            text: 'Kategori Dağılımı',
+            align: 'center',
+            style: {
+                fontSize: '18px'
+            }
+        },
+        legend: {
+            position: 'bottom'
+        }
+    };
+
+    var donutChart = new ApexCharts(document.querySelector("#donutChart"), donutOptions);
+    donutChart.render();
+</script>

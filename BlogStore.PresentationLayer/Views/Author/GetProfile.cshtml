@@ -1,0 +1,76 @@
+﻿@model BlogStore.EntityLayer.Entities.AppUser
+@{
+    ViewData["Title"] = "GetProfile";
+    Layout = "~/Views/AuthorLayout/Index.cshtml";
+}
+
+<div class="container my-5">
+    <div class="row gx-5">
+        <!-- Profil Kartı -->
+        <div class="col-lg-4 mb-4">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body text-center">
+                    <img src="@ViewBag.imageurl" alt="Profil Resmi" class="rounded-circle mb-3" style="width:120px; height:120px; object-fit:cover; border: 3px solid #0d6efd;">
+                    <h3 class="card-title mb-1 fw-bold">@ViewBag.name @ViewBag.surname</h3>
+                    <p class="text-secondary mb-2">@ViewBag.username</p>
+                    <hr />
+                    <h5 class="fw-semibold mb-3">Bilgilerim</h5>
+                    <ul class="list-unstyled text-start fs-6">
+                        <li class="mb-2">
+                            <strong class="me-2 text-primary">📧 Email:</strong>
+                            <span>@ViewBag.email</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profil Güncelleme Formu -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body">
+                    <h4 class="card-title mb-4 fw-bold text-primary">Profil Bilgilerini Güncelle</h4>
+                    <form method="post" action="/Author/EditProfile" novalidate>
+                        <div class="mb-4">
+                            <label asp-for="ImageUrl" class="form-label fw-semibold">Profil Resmi URL</label>
+                            <input type="text" asp-for="ImageUrl" class="form-control form-control-lg rounded-3" placeholder="Profil Resmi URL" />
+                            <span class="text-danger" asp-validation-for="ImageUrl"></span>
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label asp-for="Name" class="form-label fw-semibold">Ad</label>
+                                <input type="text" asp-for="Name" class="form-control form-control-lg rounded-3" placeholder="Ad" />
+                                <span class="text-danger" asp-validation-for="Name"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Surname" class="form-label fw-semibold">Soyad</label>
+                                <input type="text" asp-for="Surname" class="form-control form-control-lg rounded-3" placeholder="Soyad" />
+                                <span class="text-danger" asp-validation-for="Surname"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="UserName" class="form-label fw-semibold">Kullanıcı Adı</label>
+                            <input type="text" asp-for="UserName" class="form-control form-control-lg rounded-3" placeholder="Kullanıcı Adı" />
+                            <span class="text-danger" asp-validation-for="UserName"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Email" class="form-label fw-semibold">E-posta</label>
+                            <input type="email" asp-for="Email" class="form-control form-control-lg rounded-3" placeholder="E-posta" />
+                            <span class="text-danger" asp-validation-for="Email"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="newPassword" class="form-label fw-semibold">Yeni Şifre</label>
+                            <input type="password" name="newPassword" class="form-control form-control-lg rounded-3" placeholder="Yeni Şifre" />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg w-100 rounded-3 fw-semibold">Kaydet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
