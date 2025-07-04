@@ -23,12 +23,15 @@ builder.Services.AddScoped<IArticleDal, EfArticleDal>();
 builder.Services.AddDbContext<BlogContext>();
 builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<BlogContext>();
 
+builder.Services.AddHttpClient<IToxicityDetectionService, ToxicityManager>();
+builder.Services.AddHttpClient<ITranslationService, TranslationManager>();
+
+builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
 builder.Services.AddControllersWithViews();
 
 
-builder.Services.AddHttpClient<IToxicityDetectionService, ToxicityManager>();
-builder.Services.AddHttpClient<ITranslationService, TranslationManager>();
+
 
 var app = builder.Build();
 
